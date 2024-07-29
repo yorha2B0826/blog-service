@@ -40,10 +40,10 @@ func main() {
 	global.Logger.Infof("%s: go-programming-tour-book/%s", "eddycjy", "blog-service")
 	router := routers.NewRouter()
 	s := &http.Server{
-		Addr:           ":8080",
+		Addr:           ":" + global.ServerSetting.HttpPort,
 		Handler:        router,
-		ReadTimeout:    10 * time.Second,
-		WriteTimeout:   10 * time.Second,
+		ReadTimeout:    global.ServerSetting.ReadTimeout,
+		WriteTimeout:   global.ServerSetting.WriteTimeout,
 		MaxHeaderBytes: 1 << 20,
 	}
 	s.ListenAndServe()
