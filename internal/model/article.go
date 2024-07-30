@@ -23,7 +23,7 @@ func (a Article) TableName() string {
 	return "blog_article"
 }
 
-func (a Article) create(db *gorm.DB) (*Article, error) {
+func (a Article) Create(db *gorm.DB) (*Article, error) {
 	if err := db.Create(&a).Error; err != nil {
 		return nil, err
 	}
