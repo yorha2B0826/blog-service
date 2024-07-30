@@ -3,11 +3,13 @@ package routers
 import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-programming-tour-book/blog-service/docs"
+	"github.com/go-programming-tour-book/blog-service/global"
 	"github.com/go-programming-tour-book/blog-service/internal/middleware"
 	"github.com/go-programming-tour-book/blog-service/internal/routers/api"
 	v1 "github.com/go-programming-tour-book/blog-service/internal/routers/api/v1"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"net/http"
 )
 
 func NewRouter() *gin.Engine {
@@ -20,6 +22,7 @@ func NewRouter() *gin.Engine {
 
 	upload := api.NewUpload()
 	r.POST("/upload/file", upload.UploadFile)
+	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
 
 	article := v1.NewArticle()
 	tag := v1.NewTag()
@@ -37,8 +40,6 @@ func NewRouter() *gin.Engine {
 		apiv1.PATCH("/articles/:id/state", article.Update)
 		apiv1.GET("/articles/:id", article.Get)
 		apiv1.GET("/articles", article.List)
-
 	}
-
 	return r
 }
