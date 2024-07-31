@@ -1,6 +1,8 @@
 package setting
 
-import "time"
+import (
+	"time"
+)
 
 type ServerSettingS struct {
 	RunMode      string
@@ -38,6 +40,16 @@ type JWTSettingS struct {
 	Secret string
 	Issuer string
 	Expire time.Duration
+}
+
+type EmailSettingS struct {
+	Host     string
+	Port     int
+	Username string
+	Password string
+	IsSSL    bool
+	From     string
+	To       []string
 }
 
 func (s *Setting) ReadSection(k string, v interface{}) error {
